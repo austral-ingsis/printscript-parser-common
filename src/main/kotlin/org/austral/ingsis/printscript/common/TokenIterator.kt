@@ -13,6 +13,7 @@ class TokenIterator private constructor(private val content: String, private val
         private val EOF_TOKEN = Token(EOF, 0, 0, LexicalRange(0, 0, 0, 0))
         private fun <T> consumedEofToken(read: Read<T>) = Content(read.default(), EOF_TOKEN)
 
+        @JvmStatic
         fun create(content: String, tokens: List<Token>) = TokenIterator(content, tokens.filter { it.type != WHITESPACE })
     }
 
