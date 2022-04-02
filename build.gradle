@@ -31,6 +31,11 @@ compileTestKotlin {
     kotlinOptions.jvmTarget = '1.8'
 }
 
+task sourceJar(type: Jar) {
+    classifier 'sources'
+    from sourceSets.main.allSource
+}
+
 publishing {
     repositories {
         maven {
@@ -45,6 +50,7 @@ publishing {
     publications {
         gpr(MavenPublication) {
             from(components.kotlin)
+            artifact tasks.sourceJar
         }
     }
 }
