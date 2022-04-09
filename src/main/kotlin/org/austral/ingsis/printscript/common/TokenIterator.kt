@@ -39,8 +39,10 @@ class TokenIterator private constructor(private val content: String, private val
     }
 
     fun hasNext(): Boolean = offset < tokens.size
-
     fun current(): Token = if (hasNext()) tokens[offset] else EOF_TOKEN
+    fun remaining(): List<Token> = tokens.subList(offset, tokens.size)
+    fun content(): String = content
+    fun copy(tokens: List<Token>): TokenIterator = TokenIterator(content, tokens)
 
     private fun <T> content(token: Token, read: Read<T>): Content<T> {
         return Content(read.read(content, token.from, token.to), token)

@@ -6,7 +6,7 @@ import java.lang.Exception
 
 data class TokenConsumeException(val got: TokenType, val expected: TokenType) : Exception("Expected: ${expected.type}, got: ${got.type}")
 
-abstract class TokenConsumer(protected val stream: TokenIterator) {
+class TokenConsumer(protected val stream: TokenIterator) {
 
     fun consume(type: TokenType): Content<String> = consume(type, StringRead)
 
@@ -60,5 +60,8 @@ abstract class TokenConsumer(protected val stream: TokenIterator) {
         else null
     }
 
+    fun copy(tokens: List<Token>) = TokenConsumer(stream.copy(tokens))
     fun current(): Token = stream.current()
+    fun remaining(): List<Token> = stream.remaining()
+    fun content(): String = stream.content()
 }

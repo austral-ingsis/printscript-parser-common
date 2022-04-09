@@ -7,7 +7,7 @@ interface Read<T> {
 
 object StringRead : Read<String> {
     override fun read(content: String, from: Int, to: Int): String {
-        return content.substring(from, to)
+        return content.substring(from, to).trim('"')
     }
 
     override fun default(): String {
